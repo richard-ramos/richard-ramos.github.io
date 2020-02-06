@@ -1,0 +1,59 @@
+{
+  "logger": {
+    "events": {
+      "_events": {
+        "blockchain:started": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "_eventsCount": 105,
+      "_maxListeners": 350
+    },
+    "logLevels": [
+      "error",
+      "warn",
+      "info",
+      "debug",
+      "trace"
+    ],
+    "logLevel": "info",
+    "context": [
+      "build"
+    ]
+  },
+  "abiDefinition": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "className": "MessageSigned",
+  "args": [],
+  "gas": "auto",
+  "silent": false,
+  "track": true,
+  "deploy": false,
+  "realRuntimeBytecode": "",
+  "realArgs": [],
+  "code": "",
+  "runtimeBytecode": "",
+  "linkReferences": {},
+  "swarmHash": "",
+  "gasEstimates": null,
+  "functionHashes": {},
+  "filename": "/home/richard/status/escrow/.embark/contracts/common/MessageSigned.sol",
+  "originalFilename": "contracts/common/MessageSigned.sol",
+  "path": "/home/richard/status/escrow/contracts/common/MessageSigned.sol",
+  "type": "file",
+  "deploymentAccount": "0x5BE030FA3702C65C8E1c3297F4c9E50b91C936f5"
+}

@@ -1,0 +1,62 @@
+{
+  "logger": {
+    "events": {
+      "_events": {
+        "blockchain:started": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "_eventsCount": 105,
+      "_maxListeners": 350
+    },
+    "logLevels": [
+      "error",
+      "warn",
+      "info",
+      "debug",
+      "trace"
+    ],
+    "logLevel": "info",
+    "context": [
+      "build"
+    ]
+  },
+  "abiDefinition": [],
+  "className": "ECDSA",
+  "args": [],
+  "gas": "auto",
+  "silent": false,
+  "track": true,
+  "deploy": false,
+  "realRuntimeBytecode": "73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820c96684ef95341d484b",
+  "realArgs": [],
+  "code": "60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820c96684ef95341d484baf280ce65c3bb4807632b6dee03d957b5e04a71297480564736f6c63430005100032",
+  "runtimeBytecode": "73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820c96684ef95341d484baf280ce65c3bb4807632b6dee03d957b5e04a71297480564736f6c63430005100032",
+  "linkReferences": {},
+  "swarmHash": "af280ce65c3bb4807632b6dee03d957b5e04a71297480564736f6c6343000510",
+  "gasEstimates": {
+    "creation": {
+      "codeDepositCost": "17000",
+      "executionCost": "94",
+      "totalCost": "17094"
+    },
+    "internal": {
+      "recover(bytes32,bytes memory)": "infinite",
+      "toEthSignedMessageHash(bytes32)": "infinite"
+    }
+  },
+  "functionHashes": {},
+  "filename": "/home/richard/status/escrow/.embark/node_modules/openzeppelin-solidity/contracts/cryptography/ECDSA.sol",
+  "originalFilename": "contracts//home/richard/status/escrow/.embark/node_modules/openzeppelin-solidity/contracts/cryptography/ECDSA.sol",
+  "path": "/home/richard/status/escrow/contracts/.embark/node_modules/openzeppelin-solidity/contracts/cryptography/ECDSA.sol",
+  "type": "file",
+  "deploymentAccount": "0x5BE030FA3702C65C8E1c3297F4c9E50b91C936f5"
+}
