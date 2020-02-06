@@ -14,7 +14,7 @@
           null
         ]
       },
-      "_eventsCount": 105,
+      "_eventsCount": 100,
       "_maxListeners": 350
     },
     "logLevels": [
@@ -65,8 +65,7 @@
         }
       ],
       "name": "CanRelayFailed",
-      "type": "event",
-      "signature": "0xafb5afd6d1c2e8ffbfb480e674a169f493ece0b22658d4f4484e7334f0241e22"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -91,8 +90,7 @@
         }
       ],
       "name": "Deposited",
-      "type": "event",
-      "signature": "0x8752a472e571a816aea92eec8dae9baf628e840f4929fbcc2d155e6233ff68a7"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -117,8 +115,7 @@
         }
       ],
       "name": "Penalized",
-      "type": "event",
-      "signature": "0xb0595266ccec357806b2691f348b128209f1060a0bda4f5c95f7090730351ff8"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -161,8 +158,7 @@
         }
       ],
       "name": "RelayAdded",
-      "type": "event",
-      "signature": "0x85b3ae3aae9d3fcb31142fbd8c3b4722d57825b8edd6e1366e69204afa5a0dfa"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -181,8 +177,7 @@
         }
       ],
       "name": "RelayRemoved",
-      "type": "event",
-      "signature": "0x5490afc1d818789c8b3d5d63bce3d2a3327d0bba4efb5a7751f783dc977d7d11"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -207,8 +202,7 @@
         }
       ],
       "name": "Staked",
-      "type": "event",
-      "signature": "0x1449c6dd7851abc30abf37f57715f492010519147cc2652fbc38202c18a6ee90"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -251,8 +245,7 @@
         }
       ],
       "name": "TransactionRelayed",
-      "type": "event",
-      "signature": "0xab74390d395916d9e0006298d47938a5def5d367054dcca78fa6ec84381f3f22"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -271,8 +264,7 @@
         }
       ],
       "name": "Unstaked",
-      "type": "event",
-      "signature": "0x0f5bb82176feb1b5e747e28471aa92156a04d9f3ab9f45f28e2d704232b93f75"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -297,8 +289,7 @@
         }
       ],
       "name": "Withdrawn",
-      "type": "event",
-      "signature": "0xd1c19fbcd4551a5edfb66d43d2e337c04837afda3482b42bdf569a8fccdae5fb"
+      "type": "event"
     },
     {
       "constant": true,
@@ -319,8 +310,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x70a08231"
+      "type": "function"
     },
     {
       "constant": true,
@@ -391,8 +381,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x2b601747"
+      "type": "function"
     },
     {
       "constant": true,
@@ -413,8 +402,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x85f4498b"
+      "type": "function"
     },
     {
       "constant": false,
@@ -429,8 +417,7 @@
       "outputs": [],
       "payable": true,
       "stateMutability": "payable",
-      "type": "function",
-      "signature": "0xaa67c919"
+      "type": "function"
     },
     {
       "constant": true,
@@ -451,8 +438,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x2d0335ab"
+      "type": "function"
     },
     {
       "constant": true,
@@ -493,8 +479,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x8d851460"
+      "type": "function"
     },
     {
       "constant": true,
@@ -525,8 +510,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xa863f8f9"
+      "type": "function"
     },
     {
       "constant": false,
@@ -546,8 +530,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x39002432"
+      "type": "function"
     },
     {
       "constant": false,
@@ -577,8 +560,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa8cd9572"
+      "type": "function"
     },
     {
       "constant": false,
@@ -629,8 +611,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x2ca70eba"
+      "type": "function"
     },
     {
       "constant": false,
@@ -650,8 +631,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x1166073a"
+      "type": "function"
     },
     {
       "constant": false,
@@ -706,8 +686,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x405cec67"
+      "type": "function"
     },
     {
       "constant": false,
@@ -722,8 +701,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xc3e712f2"
+      "type": "function"
     },
     {
       "constant": true,
@@ -744,8 +722,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x6a7d84a4"
+      "type": "function"
     },
     {
       "constant": false,
@@ -765,8 +742,7 @@
       "outputs": [],
       "payable": true,
       "stateMutability": "payable",
-      "type": "function",
-      "signature": "0xadc9772e"
+      "type": "function"
     },
     {
       "constant": false,
@@ -781,8 +757,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xf2888dbb"
+      "type": "function"
     },
     {
       "constant": true,
@@ -797,8 +772,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x54fd4d50"
+      "type": "function"
     },
     {
       "constant": false,
@@ -818,15 +792,13 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x00f714ce"
+      "type": "function"
     }
   ],
-  "deployedAddress": "0xd9cbF595CD1cf4B4F26eA4D2e06d75B3FA1b3Cd4",
+  "deployedAddress": "0x4Ab73c53af6eC2e054458fa8D6705d1C04403249",
   "className": "RelayHub",
   "args": [],
-  "gas": 4351589,
-  "gasPrice": "1",
+  "gas": "auto",
   "silent": false,
   "track": true,
   "deploy": true,
@@ -895,6 +867,5 @@
   "originalFilename": "node_modules/tabookey-gasless/contracts/RelayHub.sol",
   "path": "/home/richard/status/escrow/node_modules/tabookey-gasless/contracts/RelayHub.sol",
   "type": "file",
-  "deploymentAccount": "0x5BE030FA3702C65C8E1c3297F4c9E50b91C936f5",
-  "transactionHash": "0x23d6a94e4e4e0c2ec7c92f37826c7c68ff7a9eeff332952fc1a6e50dcc935162"
+  "deploymentAccount": "0x7B73046E14CC085885455Ad0Ab7684AbeF7BFE0D"
 }

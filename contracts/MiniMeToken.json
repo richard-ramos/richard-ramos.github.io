@@ -14,7 +14,7 @@
           null
         ]
       },
-      "_eventsCount": 105,
+      "_eventsCount": 100,
       "_maxListeners": 350
     },
     "logLevels": [
@@ -70,8 +70,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor",
-      "signature": "constructor"
+      "type": "constructor"
     },
     {
       "anonymous": false,
@@ -96,8 +95,7 @@
         }
       ],
       "name": "Approval",
-      "type": "event",
-      "signature": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -122,8 +120,7 @@
         }
       ],
       "name": "ClaimedTokens",
-      "type": "event",
-      "signature": "0xf931edb47c50b4b4104c187b5814a9aef5f709e17e2ecf9617e860cacade929c"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -142,8 +139,7 @@
         }
       ],
       "name": "NewCloneToken",
-      "type": "event",
-      "signature": "0x086c875b377f900b07ce03575813022f05dd10ed7640b5282cf6d3c3fc352ade"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -168,8 +164,7 @@
         }
       ],
       "name": "Transfer",
-      "type": "event",
-      "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+      "type": "event"
     },
     {
       "payable": true,
@@ -200,8 +195,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xdd62ed3e"
+      "type": "function"
     },
     {
       "constant": false,
@@ -227,8 +221,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x095ea7b3"
+      "type": "function"
     },
     {
       "constant": false,
@@ -259,8 +252,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xcae9ca51"
+      "type": "function"
     },
     {
       "constant": true,
@@ -281,8 +273,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x70a08231"
+      "type": "function"
     },
     {
       "constant": true,
@@ -308,8 +299,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x4ee2cd7e"
+      "type": "function"
     },
     {
       "constant": false,
@@ -324,8 +314,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x3cebb823"
+      "type": "function"
     },
     {
       "constant": false,
@@ -340,8 +329,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xdf8de3e7"
+      "type": "function"
     },
     {
       "constant": true,
@@ -356,8 +344,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xf77c4791"
+      "type": "function"
     },
     {
       "constant": false,
@@ -398,8 +385,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x6638c087"
+      "type": "function"
     },
     {
       "constant": true,
@@ -414,8 +400,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x17634514"
+      "type": "function"
     },
     {
       "constant": true,
@@ -430,8 +415,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x313ce567"
+      "type": "function"
     },
     {
       "constant": false,
@@ -457,8 +441,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xd3ce77fe"
+      "type": "function"
     },
     {
       "constant": false,
@@ -473,8 +456,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xf41e60c5"
+      "type": "function"
     },
     {
       "constant": false,
@@ -500,8 +482,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x827f32c0"
+      "type": "function"
     },
     {
       "constant": true,
@@ -516,8 +497,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x06fdde03"
+      "type": "function"
     },
     {
       "constant": true,
@@ -532,8 +512,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc5bcc4f1"
+      "type": "function"
     },
     {
       "constant": true,
@@ -548,8 +527,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x80a54001"
+      "type": "function"
     },
     {
       "constant": true,
@@ -564,8 +542,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x95d89b41"
+      "type": "function"
     },
     {
       "constant": true,
@@ -580,8 +557,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xe77772fe"
+      "type": "function"
     },
     {
       "constant": true,
@@ -596,8 +572,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x18160ddd"
+      "type": "function"
     },
     {
       "constant": true,
@@ -618,8 +593,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x981b24d0"
+      "type": "function"
     },
     {
       "constant": false,
@@ -645,8 +619,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa9059cbb"
+      "type": "function"
     },
     {
       "constant": false,
@@ -677,8 +650,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x23b872dd"
+      "type": "function"
     },
     {
       "constant": true,
@@ -693,8 +665,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xbef97c87"
+      "type": "function"
     },
     {
       "constant": true,
@@ -709,8 +680,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x54fd4d50"
+      "type": "function"
     }
   ],
   "className": "MiniMeToken",
@@ -799,5 +769,5 @@
   "originalFilename": "contracts/token/MiniMeToken.sol",
   "path": "/home/richard/status/escrow/contracts/token/MiniMeToken.sol",
   "type": "file",
-  "deploymentAccount": "0x5BE030FA3702C65C8E1c3297F4c9E50b91C936f5"
+  "deploymentAccount": "0x7B73046E14CC085885455Ad0Ab7684AbeF7BFE0D"
 }

@@ -14,7 +14,7 @@
           null
         ]
       },
-      "_eventsCount": 105,
+      "_eventsCount": 100,
       "_maxListeners": 350
     },
     "logLevels": [
@@ -74,15 +74,13 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x5b7b72c1"
+      "type": "function"
     }
   ],
-  "deployedAddress": "0xbbD3a3Caf43aA10a561fc62A0485D8552cc97858",
+  "deployedAddress": "0xecA0608d891c49CAf608841E3048AD32a9cA66De",
   "className": "MiniMeTokenFactory",
   "args": [],
-  "gas": 2439299,
-  "gasPrice": "1",
+  "gas": "auto",
   "silent": false,
   "track": true,
   "deploy": true,
@@ -109,6 +107,5 @@
   "originalFilename": "contracts/token/MiniMeTokenFactory.sol",
   "path": "/home/richard/status/escrow/contracts/token/MiniMeTokenFactory.sol",
   "type": "file",
-  "deploymentAccount": "0x5BE030FA3702C65C8E1c3297F4c9E50b91C936f5",
-  "transactionHash": "0xc3148e8a4b36e007d2b4057696a6b0d33435f2041bac1745672d7d6537259077"
+  "deploymentAccount": "0x7B73046E14CC085885455Ad0Ab7684AbeF7BFE0D"
 }

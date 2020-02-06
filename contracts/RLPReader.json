@@ -14,7 +14,7 @@
           null
         ]
       },
-      "_eventsCount": 105,
+      "_eventsCount": 100,
       "_maxListeners": 350
     },
     "logLevels": [
@@ -30,11 +30,11 @@
     ]
   },
   "abiDefinition": [],
-  "deployedAddress": "0xA4E0C56D0fc667dAa7a9C3F74fB68b267B6Dc724",
+  "deployedAddress": "0x47f0b7F2cfbA9dc75Ec83D9c6c5e83069aC812F6",
   "className": "RLPReader",
   "args": [],
-  "gas": 83512,
-  "gasPrice": "1",
+  "gas": 73206,
+  "gasPrice": "1000000000",
   "silent": false,
   "track": true,
   "deploy": true,
@@ -72,6 +72,6 @@
   "originalFilename": "node_modules/tabookey-gasless/contracts/RLPReader.sol",
   "path": "/home/richard/status/escrow/node_modules/tabookey-gasless/contracts/RLPReader.sol",
   "type": "file",
-  "deploymentAccount": "0x5BE030FA3702C65C8E1c3297F4c9E50b91C936f5",
-  "transactionHash": "0xb16ed46750c98fe19d0c3dd91a26efa833e28dd3555a4d8925762b546d51c22c"
+  "deploymentAccount": "0x7B73046E14CC085885455Ad0Ab7684AbeF7BFE0D",
+  "transactionHash": "0x16f4c465d89fa30eb74dbf6550cb1b9c9df42de79832d196df65510d06ad0633"
 }
