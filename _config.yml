@@ -1,28 +1,50 @@
-permalink   : /:categories/:year/:title/
-markdown    : kramdown
+title: Moving # The title of the blog
+author: Your Name # Your name 
+email: your-email@domain.com # your email shown in the footer
+url: http://huangyz.name/moving/ # this is your site's root address.
+description: > # this means to ignore newlines until "show_excerpts:"
+  A clean and minimalist theme for Jekyll.
+favicon: "./favicon.ico" # set the favicon of the site 
 
-paginate_path: "/page/:num"
+show_excerpts: false # set to true to show excerpts on the homepage
+  
+# Moving date format
+# refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
+moving:
+  avatar_url: "https://i.loli.net/2019/08/26/JzCLhDWPEybZr2T.jpg" # avatar in about page
+  about_you: a short description about you. # short description about you in about page
+  date_format: "%b %d" # date format of posts in home page
+  back_to: "Home" # In the post page, you have a back button above the title, you can custom the text by yourself.
 
-source: source
-destination: _site
-sass:
-  sass_dir: _scss
-  style: compressed
+  # generate social links in about page.
+  social_links:
+    # twitter: 
+    github:  huangyz0918
+    rss: RSS
+    # dribbble: 
+    facebook: huangyz0918
+    # flickr:   
+    # instagram: 
+    linkedin: yizheng-huang
+    # pinterest: 
+    # youtube: 
+    # youtube_channel: 
+    # youtube_channel_name: 
+    # telegram: 
+    # googleplus: 
+    # microdotblog: 
+    # reddit: 
 
-# Site settings
-title: Test
-description: "The description"
-email: info@richardramos.me
-baseurl: "" 
-# url: ""
-repository: "https://github.com/richard-ramos/richard-ramos.github.io"
+    # Mastodon instances
+    # mastodon:
+    # - username: 
+    #   instance: 
+    # - username: 
+    #   instance: 
 
-footer: yes
-footer_url: "https://someurl.com"
-footer_text: "Page design by Ankit Sultana"
+# Build settings
+theme: moving # note, please use huangyz0918/moving if you want to publish to Github Pages.
 
-nav:
- - name: "About"
-   link: "/test/"
- - name: "Contact"
-   link: "contact"
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
