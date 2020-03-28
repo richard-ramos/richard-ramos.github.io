@@ -1,0 +1,18 @@
+<header id="header">
+  <a href="<%- url_for("/") %>">
+    <% if (site.logo) { %>
+      <div id="logo" style="background-image: url({{ site.logo }});"></div>
+    <% } %>
+    <div id="title">
+      <h1><%= config.title %></h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      {% for x in site.nav %}
+      <li class="alignable pull-left nav-list"><a href="{{ x.link }}">{{ x.name }}</a></li>
+      <li><a href="{{ x.link }}">{{ x.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</header>
