@@ -5,4 +5,4 @@ categories: junk
 author: "RichΛrd"
 ---
 
-Nothing to see here yet,
+Nothing to see here yet. Just testing Jekyll.
