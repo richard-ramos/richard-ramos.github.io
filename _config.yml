@@ -1,6 +1,5 @@
 permalink   : /:categories/:year/:title/
 markdown    : kramdown
-highlighter : pygments
 
 paginate_path: "/page/:num"
 
