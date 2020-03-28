@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hello friend"
+title: "Hello, friend"
 categories: junk
 author: "RichΛrd"
 ---
