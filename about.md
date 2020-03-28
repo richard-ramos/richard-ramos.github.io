@@ -2,9 +2,9 @@
 layout: about
 ---
 
-These are controlled by `about.md` under the root directory. If you want a more diverse self-introduction, you can insert the markdown content you want here.
+Hello and welcome!, My name is Richard Ramos. I'm a human being who is also a software engineer, working remotely at (Embark Labs)[https://embarklabs.io], a team that builds tools for creating decentralized software at (Status.im)[https://status.im]. 
 
-### What's New
+I am a computer/electronics enthusiast. I enjoy all aspects of computers from software to hardware, being the later the main motivator for learning some basics electronics. I also enjoy different topics like fitness, nootropics and self-improvement. I spent most of my free time in all these activities, working on random DIY projects or enjoying some time off with my family.
 
-- One paper got accepted in xxx 2019.
-- I'm going to join xxx as a xxx 2019 Fall.
+If you want to reach out, you can send me an email to info@richardramos.me. 
+Everything here is my own honest opinion and not representative of my past, present or future employeers. 
