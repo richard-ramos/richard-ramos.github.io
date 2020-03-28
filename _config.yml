@@ -1,9 +1,9 @@
-title: Test # The title of the blog
+title: Hello, I'm Richard Ramos # The title of the blog
 author: Richard # Your name 
 email: info@richardramos.me # your email shown in the footer
 url: https://richard-ramos.github.io # this is your site's root address.
 description: > # this means to ignore newlines until "show_excerpts:"
-  A clean and minimalist theme for Jekyll.
+This is my website where I write about programming, technology, electronics, science, fitness, books I've read and other random stuff.
 favicon: "./favicon.ico" # set the favicon of the site 
 
 show_excerpts: false # set to true to show excerpts on the homepage
