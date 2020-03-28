@@ -2,7 +2,7 @@
 layout: about
 ---
 
-Hello and welcome!, My name is Richard Ramos. I'm a human being who is also a software engineer, working remotely at (Embark Labs)[https://embarklabs.io], a team that builds tools for creating decentralized software at (Status.im)[https://status.im]. 
+Hello and welcome!, My name is Richard Ramos. I'm a human being who is also a software engineer, working remotely at [Embark Labs](https://embarklabs.io), a team that builds tools for creating decentralized software at [Status.im](https://status.im). 
 
 I am a computer/electronics enthusiast. I enjoy all aspects of computers from software to hardware, being the later the main motivator for learning some basics electronics. I also enjoy different topics like fitness, nootropics and self-improvement. I spent most of my free time in all these activities, working on random DIY projects or enjoying some time off with my family.
 
