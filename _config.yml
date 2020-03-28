@@ -13,7 +13,7 @@ show_excerpts: false # set to true to show excerpts on the homepage
 moving:
   avatar_url: "https://avatars1.githubusercontent.com/u/1106587?s=460&u=b172ba00750423aa164e8426b52c3b17c359b23c&v=4" # avatar in about page
   about_you: a short description about you. # short description about you in about page
-  date_format: "%M-%d" #"%b %d" # date format of posts in home page
+  date_format: "%b %d" # date format of posts in home page
   back_to: "Home" # In the post page, you have a back button above the title, you can custom the text by yourself.
 
   # generate social links in about page.
