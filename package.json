@@ -6,7 +6,7 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "push-dir": "push-dir --dir=./public --branch=gh-pages",
+    "push-dir": "push-dir --dir=./public --branch=master",
     "publish": "npm-run-all clean build push-dir",
     "clean": "gatsby clean"
   },
