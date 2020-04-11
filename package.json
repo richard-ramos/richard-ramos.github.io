@@ -1,0 +1,24 @@
+{
+  "name": "gatsby-starter-blog-theme",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "gatsby": "^2.20.12",
+    "gatsby-remark-grid-tables": "0.0.3",
+    "gatsby-theme-blog": "^1.4.12",
+    "gatsby-theme-notes": "^1.2.12",
+    "gatsby-theme-waves": "^0.1.6",
+    "gatsby-transformer-remark": "^2.7.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "remark-grid-tables": "^2.1.1",
+    "typeface-fira-code": "^1.1.4"
+  }
+}

@@ -1,0 +1,777 @@
+---
+title: Little Man Computer
+date: 2020-04-10
+---
+
+import { CodeWave } from "gatsby-theme-waves"
+import "prismjs/components/prism-rust"
+import "prismjs/components/prism-toml"
+
+---
+
+The Little Man Computer (LMC), created by Dr. Stuart Madnick in 1965, simulates a simple von Neumann architecture computer. It is used to explain how a computer works in easy-to-understand terms: Imagine a man in a room, whose job is to fetch instructions, decode and execute them continuously, acting as the control unit of a CPU. This room has an inbox, an outbox, 100 numbered mailboxes, a counter, and a accumulator or calculator that can only do addition and subtraction. The little man - using these tools - must follow these steps:
+ 
+1. Read the number displayed in the Counter (it starts at 0)
+2. Go to the mailbox with that same number, look and remember the number that appears on a slip of paper in that mailbox.
+3. Push a button to increment the Counter
+5. Perform the instruction designated by the number on the slip of paper.
+6. Go back to step 1 or halt
+
+There's a limited set of instructions that the little man can do:
+
+```
++---------+----------+------------------------------------------------------------------------+
+| Numeric | Mnemonic | Description                                                            |
++---------+----------+------------------------------------------------------------------------+
+| 000     | STOP     | Stops the Computer                                                     |
+| 1xx     | ADD xx   | Adds the contents of the mailbox xx to the accumulator value           |
+| 2xx     | SUB xx   | Subtracts the contents of the mailbox xx from the accumulator value    |
+| 3xx     | STO xx   | Stores the accumulator value into the mailbox xx                       |
+| 5xx     | LOAD xx  | Replace the accumulator value with the contents of the mailbox xx      |
+| 6xx     | BRA xx   | Sets the counter to the number xx                                      |
+| 7xx     | BRZ xx   | If the accumulator value is zero, sets the counter to the number xx    |
+| 8xx     | BRP xx   | If the accumulator value is greater or equals to 0, then set the       |
+|         |          | counter to the number xx                                               |
+| 901     | READ     | Read a number from the inbox and write it into the accumulator         |
+| 902     | PRINT    | Copy the number in the accumulator onto a slip of paper and place      |
+|         |          | it into the outbox                                                     |
++---------+----------+------------------------------------------------------------------------+
+```
+
+We will write a small LMC. This write-up assumes you have Rust installed in your machine, if that is not the case, [install it!](https://www.rust-lang.org/learn/get-started). 
+
+## Project setup
+
+Let's start by creating a folder for our project and a new Rust package inside it. 
+
+```
+mkdir lmc
+cd ./lmc
+cargo init
+```
+
+This command will generate our project manifest `Cargo.toml` which contains all the metadata required to compile the project, and the default executable file `src/main.rs`.
+```
+lmc
+|-- .git
+|-- .gitignore
+|-- Cargo.toml
+|-- src
+    |-- main.rs
+```
+
+Executing `cargo run` will compile and execute the project:
+```
+cargo run
+  Compiling lmc v0.1.0 (/path/to/lmc)
+  Finished dev [unoptimized + debuginfo] target(s) in 0.50s
+    Running `target/debug/lmc`
+Hello world
+```
+
+## Reading arguments from the command line
+
+We need to fill the LMC mailboxes with up to 100 instructions. To indicate our program how whether we will read these instructions from the standard input or a file, we will use a command line flag.
+
+A nice way to do this is through the most popular crate to parse command line arguments: [`clap`](http://clap.rs). We need to add this library to our dependencies in the `Cargo.toml` file.
+
+```toml
+[dependencies]
+clap = "2.33.0"
+```
+
+And fetch this dependency and pre-compile it with `cargo build`.
+
+<CodeWave>
+
+```rust
+// main.rs
+
+fn main() {
+  println!("Hello, world!");
+}
+```
+Edit the main function of `main.rs` file. Currently it only prints "Hello, world!". Let's make it do something more interesting!
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+}
+```
+Add the following code to make our program expect an optional flag `--file`. We can also use `-f`. If you execute `cargo run -- --help`, you'll see that the `clap` package displays some hints on what flags are expected.
+
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+}
+```
+The next step is to read the instructions. Depending on the `--file` flag we will read it from a file, or from the standard input. Start by importing som elements from the packages `std::io` and `std::fs`.
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+
+  // If --file is present, read the values from a file
+  let reader: Box<dyn BufRead> = match matches.value_of("file") {
+    Some(file_path) => {
+      let path = std::path::PathBuf::from(file_path);
+      let f = File::open(path).expect("File not found");
+      Box::new(BufReader::new(f))
+    },
+    None => Box::new(BufReader::new(io::stdin()))
+  };
+}
+```
+And create a `reader` variable that will contain a `BufRead` trait object (both `File` and `io::stdin()` implement this trait).
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+
+  // If --file is present, read the values from a file
+  let reader: Box<dyn BufRead> = match matches.value_of("file") {
+    Some(file_path) => {
+      let path = std::path::PathBuf::from(file_path);
+      let f = File::open(path).expect("File not found");
+      Box::new(BufReader::new(f))
+    },
+    None => Box::new(BufReader::new(io::stdin()))
+  };
+
+  // Fill mailbox
+  let mut mailbox: [i32; 100] = [0; 100];
+  for (i, value) in reader.lines().enumerate() {
+
+  }
+}
+```
+The LMC has a maximum number of 100 mailboxes, or memory slots available to hold our instructions. We will use an array of 100 elements initialized to 0 (the default state of our mailboxes). Then, using the `reader` we will proceed to get all the values. The iterator `enumerate()` is useful because it returns a pair containing the current index of the iteration and the current value.
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+
+  // If --file is present, read the values from a file
+  let reader: Box<dyn BufRead> = match matches.value_of("file") {
+    Some(file_path) => {
+      let path = std::path::PathBuf::from(file_path);
+      let f = File::open(path).expect("File not found");
+      Box::new(BufReader::new(f))
+    },
+    None => Box::new(BufReader::new(io::stdin()))
+  };
+
+  // Fill mailbox
+  let mut mailbox: [i32; 100] = [0; 100];
+  for (i, value) in reader.lines().enumerate() {
+    mailbox[i] = value.unwrap()
+                      .trim()
+                      .parse()
+                      .expect(&format!("NaN on line {}", i + 1));
+
+    if i == 99 {
+      break;
+    }
+  }
+}
+```
+Then, fill the `mailbox` array with the values from `reader`. Notice the `.expect` here is used to make our program exit if we can't read the file. Since the LMC can only have 100 mailboxes, we break out of the loop once we reach index 99 (because arrays in Rust are zero-based).
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+
+  // If --file is present, read the values from a file
+  let reader: Box<dyn BufRead> = match matches.value_of("file") {
+    Some(file_path) => {
+      let path = std::path::PathBuf::from(file_path);
+      let f = File::open(path).expect("File not found");
+      Box::new(BufReader::new(f))
+    },
+    None => Box::new(BufReader::new(io::stdin()))
+  };
+
+  // Fill mailbox
+  let mut mailbox: [i32; 100] = [0; 100];
+  for (i, value) in reader.lines().enumerate() {
+    mailbox[i] = value.unwrap()
+                      .trim()
+                      .parse()
+                      .expect(&format!("NaN on line {}", i + 1));
+
+    if i == 99 {
+      break;
+    }
+  }
+
+  println!("Instructions: {:?}", &mailbox[..]);
+}
+```
+We can see our current progress by printing the values stored in `mailbox` and then compile and execute our program with `cargo run`.  Enter some numbers and then press `CTRL + D` in Linux or `CTRL + Z` on Windows to display the values in the `mailbox` array and exit the program. You can also test it with a file by executing <br />`cargo run -- --file filename.txt`.
+
+</CodeWave>
+
+And that's it! We have our main program ready to fill the `mailbox` array with instructions for the LMC that we are going to build in the next section. 
+
+## Creating the LMC as a library
+<CodeWave>
+
+```rust
+// lib.rs
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+}
+```
+Ideally, our LMC program could be used as a binary executable or as a library, in case we want to publish it as a crate. Create a file `src/lib.rs`. This file will contain all the logic for the LMC described above. In this file we will add a function `compute` that receives the `mailbox` array. Also, we will declare two variables: `program_cnt` representing our counter, and `accumulator`, for the calculator value. Since `program_cnt` represents an index in the `mailbox` array, we use the type `usize`.
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+
+  let instruction = mailbox[program_cnt];
+  let code : i32 = instruction / 100;
+  let index : usize = usize::try_from(instruction % 100).unwrap();
+}
+```
+An instruction in the LMC is represented by a three digits number. The first digit being the `code`, and the other digits are the index of the mailbox to apply the instruction. Notice that we cast the index from `i32` to `usize` with `try_from`.
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+    
+  let instruction = mailbox[program_cnt];
+  let code : i32 = instruction / 100;
+  let index : usize = usize::try_from(instruction % 100).unwrap();
+    
+  match code {
+    1 => accumulator += mailbox[index], // ADD
+    2 => accumulator -= mailbox[index], // SUBSTRACT
+    3 => mailbox[index] = accumulator, // STORE
+    5 => accumulator = mailbox[index], // LOAD
+    0 => return, // HALT
+    _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+  }
+}
+```
+Here we implement first the simpler actions from the instruction table. The `_` will be used to exit the LMC program with an error when it receives an Invalid action.
+</CodeWave>
+
+
+## Using our library
+
+<CodeWave>
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+
+  // If --file is present, read the values from a file
+  let reader: Box<dyn BufRead> = match matches.value_of("file") {
+    Some(file_path) => {
+      let path = std::path::PathBuf::from(file_path);
+      let f = File::open(path).expect("File not found");
+      Box::new(BufReader::new(f))
+    },
+    None => Box::new(BufReader::new(io::stdin()))
+  };
+
+  // Fill mailbox
+  let mut mailbox: [i32; 100] = [0; 100];
+  for (i, value) in reader.lines().enumerate() {
+    mailbox[i] = value.unwrap()
+                      .trim()
+                      .parse()
+                      .expect(&format!("NaN on line {}", i + 1));
+
+    if i == 99 {
+      break;
+    }
+  }
+
+  println!("Instructions: {:?}", &mailbox[..]);
+}
+```
+So, let's see our progress so far. We have a program that reads a series of instructions either from the command line or from a file. There's also a library file, however, it's not being invoked by our main program.
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+use lmc;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+
+  // If --file is present, read the values from a file
+  let reader: Box<dyn BufRead> = match matches.value_of("file") {
+    Some(file_path) => {
+      let path = std::path::PathBuf::from(file_path);
+      let f = File::open(path).expect("File not found");
+      Box::new(BufReader::new(f))
+    },
+    None => Box::new(BufReader::new(io::stdin()))
+  };
+
+  // Fill mailbox
+  let mut mailbox: [i32; 100] = [0; 100];
+  for (i, value) in reader.lines().enumerate() {
+    mailbox[i] = value.unwrap()
+                      .trim()
+                      .parse()
+                      .expect(&format!("NaN on line {}", i + 1));
+
+    if i == 99 {
+      break;
+    }
+  }
+
+  println!("Instructions: {:?}", &mailbox[..]);
+}
+```
+Import the library.
+
+```rust
+// main.rs
+
+use clap::{Arg, App};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
+use lmc;
+
+fn main() {
+  let matches = App::new("Little man computer")
+    .version("1.0")
+    .arg(Arg::with_name("file")
+      .short("f")
+      .long("file")
+      .help("Indicates that the input is a file path")
+      .takes_value(true))
+      .get_matches();
+
+  // If --file is present, read the values from a file
+  let reader: Box<dyn BufRead> = match matches.value_of("file") {
+    Some(file_path) => {
+      let path = std::path::PathBuf::from(file_path);
+      let f = File::open(path).expect("File not found");
+      Box::new(BufReader::new(f))
+    },
+    None => Box::new(BufReader::new(io::stdin()))
+  };
+
+  // Fill mailbox
+  let mut mailbox: [i32; 100] = [0; 100];
+  for (i, value) in reader.lines().enumerate() {
+    mailbox[i] = value.unwrap()
+                      .trim()
+                      .parse()
+                      .expect(&format!("NaN on line {}", i + 1));
+
+    if i == 99 {
+      break;
+    }
+  }
+
+  // Execute program
+  lmc::compute(mailbox);
+}
+```
+And then call the function compute by passing the `mailbox` array as a parameter.
+</CodeWave>
+
+Execute `cargo run` and enter the following instructions:
+```
+901
+902
+000
+(remember to use `CTRL + D` in Linux / `CTRL + Z` in Windows)
+```
+
+<CodeWave>
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+use text_io::read;
+use std::io;
+use std::io::Write;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+    
+  let instruction = mailbox[program_cnt];
+  let code : i32 = instruction / 100;
+  let index : usize = usize::try_from(instruction % 100).unwrap();
+    
+  match code {
+    1 => accumulator += mailbox[index], // ADD
+    2 => accumulator -= mailbox[index], // SUBSTRACT
+    3 => mailbox[index] = accumulator, // STORE
+    5 => accumulator = mailbox[index], // LOAD
+    0 => return, // HALT
+    _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+  }
+}
+
+```
+You'll notice that after entering the instructions, only the first instruction is executed. 
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+use text_io::read;
+use std::io;
+use std::io::Write;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+    
+  loop {
+    let instruction = mailbox[program_cnt];
+    let code : i32 = instruction / 100;
+    let index : usize = usize::try_from(instruction % 100).unwrap();
+    
+    match code {
+      1 => accumulator += mailbox[index], // ADD
+      2 => accumulator -= mailbox[index], // SUBSTRACT
+      3 => mailbox[index] = accumulator, // STORE
+      5 => accumulator = mailbox[index], // LOAD
+      0 => return, // HALT
+      _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+    }
+        
+    program_cnt += 1;
+  }
+}
+```
+We are missing a loop in our library. Add a `loop` and increase the counter on each iteration: 
+
+</CodeWave>
+
+Now if we run the program with `cargo run`, we'll see it executes each instruction.
+
+```
+cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `target/debug/lmc`
+901
+902
+000
+Input: 
+```
+
+## Input, output and branching instructions
+
+To implement the READ instruction, we'll use the `text_io` crate. Add it to the `Cargo.toml` file
+
+```toml
+[dependencies]
+clap = "2.33.0"
+text_io = "0.1.8"
+```
+
+<CodeWave>
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+use text_io::read;
+use std::io;
+use std::io::Write;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+    
+  loop {
+    let instruction = mailbox[program_cnt];
+    let code : i32 = instruction / 100;
+    let index : usize = usize::try_from(instruction % 100).unwrap();
+
+    match code {
+      1 => accumulator += mailbox[index], // ADD
+      2 => accumulator -= mailbox[index], // SUBSTRACT
+      3 => mailbox[index] = accumulator, // STORE
+      5 => accumulator = mailbox[index], // LOAD
+      0 => return, // HALT
+      _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+    }
+  }
+}
+```
+Let's go back and edit `lib.rs`. We are only missing a few instructions to complete our LMC.
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+use text_io::read;
+use std::io;
+use std::io::Write;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+    
+  loop {
+    let instruction = mailbox[program_cnt];
+    let code : i32 = instruction / 100;
+    let index : usize = usize::try_from(instruction % 100).unwrap();
+
+    match code {
+      1 => accumulator += mailbox[index], // ADD
+      2 => accumulator -= mailbox[index], // SUBSTRACT
+      3 => mailbox[index] = accumulator, // STORE
+      5 => accumulator = mailbox[index], // LOAD
+      9 => match index {
+        1 => { // INPUT
+          print!("Input: ");
+          io::stdout().flush().unwrap();
+          let value: String = read!("{}\n");
+          accumulator = value.parse().expect("Invalid input value");
+        },
+        _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+      },
+      0 => return, // HALT
+      _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+    }
+  }
+}
+```
+We can implement instruction `901`, using the `read!` macro. Notice that we used `io::stdout().flush().unwrap()` after the `print!`. This is because we want to display the string `"Input: "` before we read a value. 
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+use text_io::read;
+use std::io;
+use std::io::Write;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+    
+  loop {
+    let instruction = mailbox[program_cnt];
+    let code : i32 = instruction / 100;
+    let index : usize = usize::try_from(instruction % 100).unwrap();
+
+    match code {
+      1 => accumulator += mailbox[index], // ADD
+      2 => accumulator -= mailbox[index], // SUBSTRACT
+      3 => mailbox[index] = accumulator, // STORE
+      5 => accumulator = mailbox[index], // LOAD
+      9 => match index {
+        1 => { // INPUT
+          print!("Input: ");
+          io::stdout().flush().unwrap();
+          let value: String = read!("{}\n");
+          accumulator = value.parse().expect("Invalid input value");
+        },
+        2 => println!("Output: {}", accumulator), // OUTPUT
+        _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+      },
+      0 => return, // HALT
+      _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+    }
+  }
+}
+```
+To implement the PRINT instruction (`902`) we only need to display the value we have in the accumulator with a `println!`.
+
+```rust
+// lib.rs
+
+use std::convert::TryFrom;
+use text_io::read;
+use std::io;
+use std::io::Write;
+
+pub fn compute(mut mailbox: [i32; 100]) {
+  let mut program_cnt: usize = 0;
+  let mut accumulator: i32 = 0;
+    
+  loop {
+    let instruction = mailbox[program_cnt];
+    let code : i32 = instruction / 100;
+    let index : usize = usize::try_from(instruction % 100).unwrap();
+
+    match code {
+      1 => accumulator += mailbox[index], // ADD
+      2 => accumulator -= mailbox[index], // SUBSTRACT
+      3 => mailbox[index] = accumulator, // STORE
+      5 => accumulator = mailbox[index], // LOAD
+      6 => { // BRANCH
+        program_cnt = index;
+        continue;
+      },
+      7 => { // BRANCH IF ZERO
+        if accumulator == 0 {
+          program_cnt = index;
+          continue;
+        }
+      },
+      8 => { // BRANCH IF POSITIVE
+        if accumulator >= 0 {
+          program_cnt = index;
+          continue;
+        }
+      },
+      9 => match index {
+        1 => { // INPUT
+          print!("Input: ");
+          io::stdout().flush().unwrap();
+          let value: String = read!("{}\n");
+          accumulator = value.parse().expect("Invalid input value");
+        },
+        2 => println!("Output: {}", accumulator), // OUTPUT
+        _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+      },
+      0 => return, // HALT
+      _ => panic!(format!("Invalid action: {}", mailbox[program_cnt]))
+    }
+  }
+}
+```
+The instructions `6xx`, `7xx` and `8xx` are very similar except for their conditions to change the counter value. We need to use a `continue` to avoid increasing the program counter after executing the instruction.
+
+</CodeWave>
+
+
+And with this, the LMC is complete! You can create a more complex program to see the LMC in action:
+
+`countdown.txt`
+```
+901
+902
+308
+207
+308
+801
+000
+001
+000
+```
+
+```bash
+cargo run -- --file ./countdown.txt
+```
+
+## Final thoughts
+The LMC program is like assembly language that a CPU understands, and it serves as a good introduction to learn how a computer works. Try creating some programs and find ways to improve the LMC! (some ideas: extend the program with non-standard instructions to print ascii characters, create a lexer to accept the mnemonics instead of the numeric codes, validate the instructions and input data).
