@@ -2,16 +2,34 @@
 title: Setting up a remote development environment
 date: 2020-04-18
 ---
+import doDroplet from './do-droplet.png'
+import doConfig from './do-config.png'
+import doConfig2 from './do-config-2.png'
+import remoteDevelopment from './remote-development.png';
+import remoteDevelopmentIcon from './remote-development-icon.png';
+import login from './login.png';
+import setup from './setup.jpg';
+import vscode from './vscode.png';
 
 One of the inconveniences of being a remote worker in the Dominican Republic is that there's always a chance of power outage.
 
-In my home I solved this problem by having a power inverter, batteries and a UPS to power most of my devices, but there have been times that these power outages have outlasted my batteries life so I have to rely on my laptop's battery.
+So far I have solved this problem by having a power inverter, batteries and a UPS to power most of my devices, but there have been times that these power outages have outlasted my batteries life so I have to rely on my laptop's battery.
 
-While it's battery is good, and I have achieved more than 6hrs of battery life while using the browser + wifi, the moment I have to do something serious I get less than 2 hours of battery life, if I use Electron apps like Visual Studio Code and Discord.
+While its battery is good, having achieved more than 6hrs of battery life while using the browser + wifi, the moment I have to do something serious I get less than 2 hours of battery life, specially when I use Electron apps like Visual Studio Code and Discord.
 
 There's been also occasions when I'm not in my home and I still want to work, and there is no power outlets available.
 
-My normal approach is to use my cell phone as a mobile hotspot (I have an unlimited data plan), close unused / non-critical applications (i.e. I'll run Skype and Discord on my phone instead of my laptop), and code on Vi instead of VS Code, but lately I've been exploring on having a remote development environment instead of running everything on my local machine. Let's dive in on my current setup.
+What I tipically do in these cases is:
+- Use my cell phone as a mobile hotspot (I have an unlimited data plan), 
+- Connect my phone to a portable charger
+- Close unused / non-critical applications (i.e. I'll run Skype and Discord on my phone instead of my laptop), 
+- Code on Vi instead of VS Code.
+
+<p style="text-align: center">
+  <img src={setup} />
+</p>
+
+This increases my battery life to an acceptable 3hrs, but lately I've been exploring on having a remote development environment instead of running everything on my local machine, increasing my battery life in the meantime. Let's dive in on my current setup.
 
 
 ### Generating a local SSH key
@@ -54,11 +72,15 @@ This will generate two files: `~/.ssh/id_rsa` (your private key, do not share th
 It's also a good idea to backup these files
 
 ### Creating your remote machine
-After looking at different cloud providers, I ended up choosing [DigitalOcean](https://www.digitalocean.com/). There are other alternatives available like AWS or Azure. Setting up my remote development environment, I found there aren't many differences between providers except for cost. The first step is to go to digitalocean.com, and after creating an account, we need to create a droplet. I'm using Ubuntu 19.10 x64, with 8GB of ram and 4 CPUs. At the moment of writing, the cost is 40 USD/Month.
+<img src={doConfig} style="margin-right: 4px; float: left" />
 
-![do-config](./avatar.png)
+After looking at different cloud providers, I ended up choosing [DigitalOcean](https://www.digitalocean.com/). There are other alternatives available like AWS or Azure. Setting up my remote development environment, I found there aren't many differences between providers except for cost. The first step is to go to [digitalocean.com](https://www.digitalocean.com), and after creating an account, we need to create a droplet. I'm using Ubuntu 19.10 x64, with 8GB of ram and 4 CPUs. At the moment of writing, the cost is 40 USD/Month. 
 
-For increased security, the authentication method used will be "SSH keys". Add your previously created public SSH key by copying the content of the file `~/.ssh/id_rsa.pub`. 
+<img src={doConfig2} style="margin: 4px; float: right" />
+
+For increased security, the authentication method used will be "SSH keys". 
+
+Add your previously created public SSH key by copying the content of the file `~/.ssh/id_rsa.pub`. 
 ```bash
 # You can copy the content of the file from the terminal
 cat ~/.ssh/id_rsa.pub
@@ -69,7 +91,7 @@ xclip -selection clipboard ~/.ssh/id_rsa.pub`
 
 Set the hostname, and click on `Create Droplet`, and wait until your droplet has been created.
 
-[TODO Image]
+<img src={doDroplet} />
 
 ### Initial setup of your remote machine
 We need to create an user that we will to use to setup our development environment. This user will also have the same authorized key to only allow login into this server with this user from our local machine. This user will also be part of the `sudo` group.
@@ -160,7 +182,7 @@ sudo docker run hello-world
 ```
 
 ### Install your development environment
-This will depend on the tools/languages you use for development. i.e. the following commands would install a Node.js environment on your remote PC with the latest LTS version, using [`nvm`](https://github.com/nvm-sh/nvm) (Node Version Manager), and the [`yarn](https://www.yarnpkg.com) package manager.
+This will depend on the tools/languages you use for development. i.e. the following commands would install a Node.js environment on your remote machine with the latest LTS version, using [`nvm`](https://github.com/nvm-sh/nvm) (Node Version Manager), and the [`yarn](https://www.yarnpkg.com) package manager.
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
@@ -206,11 +228,15 @@ info  SSH server listening on localhost:42663
 info    - To disable use `--disable-ssh`
 ```
 
-[TODO: IMAGE GOES HERE]
+<p style="text-align: center">
+  <img src={login} />
+</p>
 
 In a browser, open the URL http://your-server-ip:8080 and enter the password.
 
-[TODO: IMAGE GOES HERE]
+<p style="text-align: center">
+  <img src={vscode} />
+</p>
 
 The editor will display the following message: 
 > code-server is being accessed over an insecure domain. Web views, the clipboard, and other functionality will not work as expected. 
@@ -221,7 +247,9 @@ This can be fixed by using a reverse proxy, and assigning a domain to this serve
 
 You can develop with VS Code on your local machine connected to your remote environment, by installing the `Remote Development` extension
 
-[ TODO IMAGEN]
+<img src={remoteDevelopment} />
+
+<img src={remoteDevelopmentIcon} style="margin-left: 4px; float: right" />
 
 Once it's installed, in the menu on the left you'll see a new option that once selected will let you connect to the remote server you defined in `~/.ssh/config` and also edit this file.
 
