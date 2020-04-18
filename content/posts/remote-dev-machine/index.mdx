@@ -276,9 +276,12 @@ To restore the snapshot, Create a new droplet, and select "Snapshots" and the sn
 
 You'll end up with a machine containing the same configuration you created, but with a new IP address. Remember to edit `~/.ssh/config` to replace the old droplet IP with this new address.
 
+
 ### Final thoughts
 
 Setting up this remote environment is a nice exercise and requires a minimal time investment. I believe it was worth it because it allowed me to have an alternative fore when the resources on my local machine are limited. (I could even use an iPad as a local machine if I wanted to with this configuration). 
+
+My workflow does not change much: the moment I have to go off-the-grid, I set my cellphone as hotspot, connect my laptop to it, push to Github my work, close everything, open a terminal and ssh into my remote environment, and pull my latest changes and continue working "normally". Switching environments takes less than 3 minutes so there's not much time wasted.
 
 I'm still not sure yet about using this setup to work 100% on it, mainly because I don't think it's a definitive solution for some use cases, like mobile development, but it could work for the development of web apps and decentralized applications.
 
