@@ -32,7 +32,7 @@ What I tipically do in these cases is:
 This increases my battery life to an acceptable 3hrs, but lately I've been exploring on having a remote development environment instead of running everything on my local machine, increasing my battery life in the meantime. Let's dive in on my current setup.
 
 
-### Generating a local SSH key
+## Generating a local SSH key
 We'll connect to the remote server via SSH. There are two ways to do it: the insecure way, using a password, or the secure way: an SSH key. I'll use this method.
 
 Start by generating a keypair in your local machine with `ssh-keygen` (read more about this command [here](https://www.ssh.com/ssh/keygen/))
@@ -71,7 +71,7 @@ This will generate two files: `~/.ssh/id_rsa` (your private key, do not share th
 
 It's also a good idea to backup these files
 
-### Creating your remote machine
+## Creating your remote machine
 
 After looking at different cloud providers, I ended up choosing [DigitalOcean](https://www.digitalocean.com/). There are other alternatives available like AWS or Azure. Setting up my remote development environment, I found there aren't many differences between providers except for cost. The first step is to go to [digitalocean.com](https://www.digitalocean.com), and after creating an account, we need to create a droplet. I'm using Ubuntu 19.10 x64, with 8GB of ram and 4 CPUs. At the moment of writing, the cost is 40 USD/Month. 
 
@@ -92,7 +92,7 @@ Set the hostname, and click on `Create Droplet`, and wait until your droplet has
 
 <img src={doDroplet} />
 
-### Initial setup of your remote machine
+## Initial setup of your remote machine
 We need to create an user that we will to use to setup our development environment. This user will also have the same authorized key to only allow login into this server with this user from our local machine. This user will also be part of the `sudo` group.
 
 ```bash
@@ -140,7 +140,7 @@ ssh remote-dev
 
 Notice that we did not have to use `root@<ip-address>` thanks to the setup we made in `~/.ssh/config`.
 
-### Dotfiles, Packages, and Docker
+## Dotfiles, Packages, and Docker
 
 Install common tools and configurations. It's a good moment to use your [.dotfiles](https://github.com/richard-ramos/dotfiles). There are some packages I usually install in all my machines:
 
@@ -180,7 +180,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io
 sudo docker run hello-world
 ```
 
-### Install your development environment
+## Install your development environment
 This will depend on the tools/languages you use for development. i.e. the following commands would install a Node.js environment on your remote machine with the latest LTS version, using [`nvm`](https://github.com/nvm-sh/nvm) (Node Version Manager), and the [`yarn](https://www.yarnpkg.com) package manager.
 
 ```bash
@@ -194,7 +194,7 @@ sudo apt update && sudo apt install yarn
 ```
 
 
-### VS Code on your browser
+## VS Code on your browser
 Neovim is my default editor of choice, but for some projects I prefer to use [Visual Studio Code](https://code.visualstudio.com/). So far, the only problem I have found with it is how many resources it uses, thus reducing my machine's battery life. I'm experimenting with `code-server`, which let's you install VS Code in the server and run an instance in the browser.
 
 ```bash
@@ -242,7 +242,7 @@ The editor will display the following message:
 
 This can be fixed by using a reverse proxy, and assigning a domain to this server and a certificate (You can obtain one from https://letsencrypt.org/). I still haven't configured this, so I'm not sure of its implications.
 
-### Remote development with VS Code on your local machine
+## Remote development with VS Code on your local machine
 
 You can develop with VS Code on your local machine connected to your remote environment, by installing the `Remote Development` extension
 
@@ -259,7 +259,7 @@ In this new VS Code window you'll be able to open folders and files on your remo
 On this window you'll also be able to forward ports on your remote environment to your local machine in case you want to access a service on that machine.
 
 
-### Reducing costs.
+## Reducing costs.
 
 Having a remote dev environment it's not cheap (depending on your income). The droplet selected has a monthly cost of 40 USD, for a server running 24/7, compared to only using your local machine. I don't use that remote environment that much, so I want to be billed only for the time I'm using my machine.
 
@@ -276,7 +276,7 @@ To restore the snapshot, Create a new droplet, and select "Snapshots" and the sn
 You'll end up with a machine containing the same configuration you created, but with a new IP address. Remember to edit `~/.ssh/config` to replace the old droplet IP with this new address.
 
 
-### Final thoughts
+## Final thoughts
 
 Setting up this remote environment is a nice exercise and requires a minimal time investment. I believe it was worth it because it allowed me to have an alternative fore when the resources on my local machine are limited. (I could even use an iPad as a local machine if I wanted to with this configuration). 
 
