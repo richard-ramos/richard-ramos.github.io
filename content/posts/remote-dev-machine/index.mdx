@@ -72,7 +72,6 @@ This will generate two files: `~/.ssh/id_rsa` (your private key, do not share th
 It's also a good idea to backup these files
 
 ### Creating your remote machine
-<img src={doConfig} style="margin-right: 4px; float: left" />
 
 After looking at different cloud providers, I ended up choosing [DigitalOcean](https://www.digitalocean.com/). There are other alternatives available like AWS or Azure. Setting up my remote development environment, I found there aren't many differences between providers except for cost. The first step is to go to [digitalocean.com](https://www.digitalocean.com), and after creating an account, we need to create a droplet. I'm using Ubuntu 19.10 x64, with 8GB of ram and 4 CPUs. At the moment of writing, the cost is 40 USD/Month. 
 
@@ -249,9 +248,9 @@ You can develop with VS Code on your local machine connected to your remote envi
 
 <img src={remoteDevelopment} />
 
-<img src={remoteDevelopmentIcon} style="margin-left: 4px; float: right" />
-
 Once it's installed, in the menu on the left you'll see a new option that once selected will let you connect to the remote server you defined in `~/.ssh/config` and also edit this file.
+
+<img src={remoteDevelopmentIcon} />
 
 Right-click `remote-dev` in the list and select `Connect to host in New Window`. 
 
