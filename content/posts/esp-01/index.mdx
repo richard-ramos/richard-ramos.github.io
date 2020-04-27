@@ -7,6 +7,7 @@ import adapter01 from './adapter-01.jpg'
 import adapter02 from './adapter-02.jpg'
 import adapter03 from './adapter-03.jpg'
 import adapter from './adapter.jpg'
+import usbUART from './usbUART.jpeg'
 import schematic from './schematic.png'
 import breadboard from './breadboard.jpg'
 import arduino from './arduino.jpg'
@@ -97,7 +98,18 @@ Arduino's RESET must be connected to one of the GND pins with a jumper cable
 
 ## USB to TTL adapter
 
-The process is similar to connecting to an Arduino (the same connections), however these adapters might not output the current required by the ESP-01. You might end up requiring an external power source to provide the 3.3v. Be sure to read the datasheet of your adapter to know how much current it can provide. The one i'm using outputs 500mA which is enough for it.
+```
++---------+----------+
++ ESP-01  | USB->TTL |
++---------+----------+
+| GND     | GND      |
+| TX      | RX       |
+| RX      | TX       |
+| VCC     | 3.3v     |
++---------+----------+
+```
+
+The process is similar to connecting to an Arduino (the same pin connections), however these adapters might not output the current required by the ESP-01. You might end up requiring an external power source to provide the 3.3 volts. Be sure to read the datasheet of your adapter to know how much current it can provide. The one I'm using outputs 500mA which is enough to program the ESP.
 
 <img src={usbttl} />
 
@@ -109,7 +121,9 @@ Also, it's important that all grounds are connected together (the external power
 
 ## Other programmers
 
-There are some cheap USB - UART programmers that can be turned into programmers. In this video the process is meticulously explained: https://www.youtube.com/watch?v=6uaIWZCRSz8 . It's an interesting alternative and one that I'll be trying in the future
+There are some cheap USB to UART programmers that can be turned into programmers. In this video the process is meticulously explained: https://www.youtube.com/watch?v=6uaIWZCRSz8 . It's an interesting alternative and one that I'll be trying in the future
+
+<img src={usbUART} />
 
 
 ## Programming
